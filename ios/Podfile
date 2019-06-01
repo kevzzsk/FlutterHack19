@@ -6,5 +6,4 @@ target 'Runner' do
   use_frameworks!
 
   # Pods for Runner
-  pod 'Firebase/Core'
 end
