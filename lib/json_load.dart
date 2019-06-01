@@ -4,8 +4,9 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
 class JSONload {
-  static Future loadData(widget) async {
-    String jsonString = await rootBundle.loadString('assets/data.json');
+
+  static Future loadData() async {
+    String jsonString = await rootBundle.loadString('assets/idea.json');
     final jsonResponse = json.decode(jsonString);
     return jsonResponse;
   }
