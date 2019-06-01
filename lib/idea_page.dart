@@ -100,7 +100,7 @@ class _IdeaPageState extends State<IdeaPage> {
     );
   }
 
-  _displayAuthor() {
+  _displayAuthor(author) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -119,7 +119,7 @@ class _IdeaPageState extends State<IdeaPage> {
                     "WRITTEN BY",
                     style: TextStyle(color: Colors.grey),
                   ),
-                  Text("AUTHOR NAME")
+                  Text(author)
                 ],
               ),
             ),
@@ -158,7 +158,7 @@ class _IdeaPageState extends State<IdeaPage> {
           child: Text(widget.data), // DISPLAY RAW STRING
         ),
         Divider(),
-        _displayAuthor(),
+        _displayAuthor(widget.data['author']),
         Divider(),
         _buildCommentTop(),
         _buildComment()

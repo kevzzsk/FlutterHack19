@@ -1,148 +1,127 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/painting.dart';
-import 'route_gen.dart';
-import 'json_load.dart';
+import 'ideas.dart';
+import 'settings.dart';
+import 'myideas.dart';
+import 'package:flutterhack19/route_gen.dart';
+import 'bookmarks.dart';
 
 void main() => runApp(MyApp());
 
+class DrawerItem{
+  String title;
+  IconData icon;
+  DrawerItem(this.title, this.icon);
+}
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  final drawerItems = [
+      DrawerItem("Explore Ideas", Icons.lightbulb_outline),
+      DrawerItem("My Bookmarks", Icons.bookmark),
+      DrawerItem("My Ideas", Icons.book),
+      DrawerItem("Settings", Icons.settings)
+    ];
+  MyHomePage({Key key, this.title}) : super(key: key);  
+
+  final String title;
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var currentIndex = 0;
-  final dummyString =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent auctor mi vitae mauris viverra sollicitudin. In sit amet velit euismod, porttitor erat nec, malesuada augue. Cras maximus et nulla vel vehicula. Phasellus interdum leo vitae leo elementum maximus.";
-  _buildTitle(title) {
-    return new Row(
-      children: <Widget>[
-        Expanded(
-          child: Text(title),
-        ),
-        IconButton(
-          icon: Icon(Icons.bookmark),
-          onPressed: () {}, // ADD BOOKMARK  BUTTON
-        )
-      ],
-    );
+  int _selectedDrawerIndex=0;
+  String _appBarTitle;
+
+  _getDrawerItemWidget(int pos) {
+    switch(pos) {
+      case 0:
+        return  Ideas();
+      case 1:
+        return Bookmarks();
+      case 2:
+        return MyIdeas();
+      case 3:
+        return Settings();
+    }
+  }
+  _getAppBarTitle(int pos) {
+    switch(pos) {
+      case 0:
+        return  Text("Explore");
+      case 1:
+        return Text("Bookmarks");
+      case 2:
+        return Text("My Ideas");
+      case 3:
+        return Text("Settings");
+    }
   }
 
-  _buildDesc(String desc) {
-    return Container(
-      height: 60,
-      child: Text(
-        desc,
-        maxLines: 3,
-        overflow: TextOverflow.ellipsis,
-      ),
-    );
-  }
-
-  _buildBottom(author) {
-    return Padding(
-        padding: EdgeInsets.only(top: 10),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(author),
-            ),
-            Text("15 upvotes")
-          ],
-        ));
-  }
-
-  Widget _buildInfo(int curIndex, data) {
-    return Container(
-      height: 200,
-      decoration: new BoxDecoration(
-          border: Border(
-              top: BorderSide(
-        style: BorderStyle.solid,
-      ))),
-      padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-      child: Column(
-        children: <Widget>[
-          _buildTitle(data[curIndex]['title']),
-          _buildDesc(data[curIndex]['description']),
-          _buildBottom(data[curIndex]['author']),
-        ],
-      ),
-    );
+  _onSelectItem(int index) {
+    setState(() {
+      _selectedDrawerIndex=index;
+      });
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    var drawerOptions = <Widget>[];
+    
+    for (var i =0; i <widget.drawerItems.length; i++){
+      var d = widget.drawerItems[i];
+      drawerOptions.add(
+        ListTile(
+          leading: Icon(d.icon),
+          title: Text(d.title),
+          selected: i == _selectedDrawerIndex,
+          onTap: () =>_onSelectItem(i)
+        )
+      );
+    }
+
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text("PowerPuff Boys"),
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: _getAppBarTitle(_selectedDrawerIndex),
+
       ),
-      body: FutureBuilder(
-          future: JSONload.loadData(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: CarouselSlider(
-                          height: 400,
-                          enlargeCenterPage: true,
-                          initialPage: 0,
-                          onPageChanged: (index) {
-                            setState(() {
-                              currentIndex = index;
-                            });
-                          },
-                          items: [0, 1, 2].map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                // use snapshot.data
-                                return Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 5.0, vertical: 10),
-                                    child: InkWell(
-                                      onTap: () {
-                                        // Navigate to new page
-                                        Navigator.pushNamed(context, '/idea',
-                                            arguments:
-                                                dummyString); // PASS DATA TO ROUTE GEN
-                                      },
-                                      child: Card(
-                                        color: Colors.blue,
-                                        child: Image.network(
-                                            snapshot.data[i]['imageURL']),
-                                      ),
-                                    ));
-                              },
-                            );
-                          }).toList()),
-                    ),
-                  ),
-                  _buildInfo(currentIndex, snapshot.data),
-                ],
-              );
-            } else {
-              return Container();
-            }
-          }),
+      drawer: Drawer(
+        child:
+          ListView(
+            
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                accountEmail: Text("alibaba@gmail.com"),
+                accountName: Text("Alibaba"),
+                
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.black,
+                  backgroundImage: NetworkImage("https://image.cnbcfm.com/api/v1/image/104225995-_95A5004.jpg?v=1540458420&w=1400&h=950")
+                ),             
+              ),
+              Column(children:drawerOptions)
+            ]
+          )
+      ),
+    
+      body: _getDrawerItemWidget(_selectedDrawerIndex),
     );
   }
 }

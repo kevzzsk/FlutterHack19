@@ -107,7 +107,7 @@ class _IdeasState extends State<Ideas> {
                                         // Navigate to new page
                                         Navigator.pushNamed(context, '/idea',
                                             arguments:
-                                                dummyString); // PASS DATA TO ROUTE GEN
+                                                snapshot.data[i]); // PASS DATA TO ROUTE GEN
                                       },
                                       child: Card(
                                         color: Colors.blue,
