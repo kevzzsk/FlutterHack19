@@ -44,6 +44,7 @@ class _IdeaPageState extends State<IdeaPage> {
   _buildComment() {
     return Container(
         child: ListView(
+          
       shrinkWrap: true,
       children: <Widget>[
         Divider(),
@@ -100,7 +101,7 @@ class _IdeaPageState extends State<IdeaPage> {
     );
   }
 
-  _displayAuthor() {
+  _displayAuthor(author) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -119,7 +120,7 @@ class _IdeaPageState extends State<IdeaPage> {
                     "WRITTEN BY",
                     style: TextStyle(color: Colors.grey),
                   ),
-                  Text("AUTHOR NAME")
+                  Text(author)
                 ],
               ),
             ),
@@ -152,17 +153,21 @@ class _IdeaPageState extends State<IdeaPage> {
           ),
         ],
       ),
-      body: ListView(children: [
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Text(widget.data), // DISPLAY RAW STRING
-        ),
-        Divider(),
-        _displayAuthor(),
-        Divider(),
-        _buildCommentTop(),
-        _buildComment()
-      ]),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10,left: 5,right:5),
+        child: ListView(children: [
+          Text(widget.data['title'], style: TextStyle(fontSize: 30,fontWeight: FontWeight.w600),),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Text(widget.data['text']), // DISPLAY RAW STRING
+          ),
+          Divider(),
+          _displayAuthor(widget.data['author']),
+          Divider(),
+          _buildCommentTop(),
+          _buildComment()
+        ]),
+      ),
     );
   }
 }
