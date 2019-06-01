@@ -44,6 +44,7 @@ class _IdeaPageState extends State<IdeaPage> {
   _buildComment() {
     return Container(
         child: ListView(
+          
       shrinkWrap: true,
       children: <Widget>[
         Divider(),

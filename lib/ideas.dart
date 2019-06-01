@@ -110,7 +110,7 @@ class _IdeasState extends State<Ideas> {
                                                 snapshot.data[i]); // PASS DATA TO ROUTE GEN
                                       },
                                       child: Card(
-                                        color: Colors.blue,
+                                        color: Colors.white,
                                         child: Image.network(
                                             snapshot.data[i]['imageURL']),
                                       ),
