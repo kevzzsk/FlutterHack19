@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/painting.dart';
+import 'route_gen.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: MyHomePage(),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
@@ -22,7 +24,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var currentIndex = 0;
-
+  final dummyString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent auctor mi vitae mauris viverra sollicitudin. In sit amet velit euismod, porttitor erat nec, malesuada augue. Cras maximus et nulla vel vehicula. Phasellus interdum leo vitae leo elementum maximus.";
   _buildTitle(title) {
     return new Row(
       children: <Widget>[
@@ -120,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
 
       default:
-      return Container();
+        return Container();
     }
   }
 
@@ -142,7 +144,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   enlargeCenterPage: true,
                   initialPage: 0,
                   onPageChanged: (index) {
-                    print(index);
                     setState(() {
                       currentIndex = index;
                     });
@@ -154,10 +155,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.symmetric(
                                 horizontal: 5.0, vertical: 10),
-                            decoration: BoxDecoration(color: Colors.blue),
-                            child: Text(
-                              'text $i',
-                              style: TextStyle(fontSize: 16.0),
+                            child: InkWell(
+                              onTap: (){
+                                // Navigate to new page
+                                Navigator.pushNamed(context, '/idea',arguments:dummyString); // PASS DATA TO ROUTE GEN
+                              },
+                              child: Card(
+                                color: Colors.blue,
+                                child: Text(
+                                  'text $i',
+                                  style: TextStyle(fontSize: 16.0),
+                                ),
+                              ),
                             ));
                       },
                     );
