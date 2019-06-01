@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/painting.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,22 +15,114 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
+class _MyHomePageState extends State<MyHomePage> {
+  var currentIndex = 0;
 
-class MyHomePage extends StatelessWidget {
+  _buildTitle(title) {
+    return new Row(
+      children: <Widget>[
+        Expanded(
+          child: Text(title),
+        ),
+        IconButton(
+          icon: Icon(Icons.bookmark),
+          onPressed: () {}, // ADD BOOKMARK  BUTTON
+        )
+      ],
+    );
+  }
 
-  final title = new Row(
-    children: <Widget>[
-      Expanded(
-        child: Text("Title"),
+  _buildDesc(String desc) {
+    return Container(
+      child: Text(
+        desc,
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
       ),
-      IconButton(
-        icon: Icon(Icons.bookmark),
-        onPressed: (){}, // ADD BOOKMARK  BUTTON
-      )
-    ],
-  );
+    );
+  }
 
+  _buildBottom(author) {
+    return Padding(
+        padding: EdgeInsets.only(top: 10),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(author),
+            ),
+            Text("15 upvotes")
+          ],
+        ));
+  }
+
+  Widget _buildInfo(int curIndex) {
+    switch (curIndex) {
+      case 0:
+        return Container(
+          height: 200,
+          decoration: new BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+            style: BorderStyle.solid,
+          ))),
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+          child: Column(
+            children: <Widget>[
+              _buildTitle("TITLE #1"),
+              _buildDesc("DESC #1"),
+              _buildBottom("Author #1"),
+            ],
+          ),
+        );
+        break;
+
+      case 1:
+        return Container(
+          height: 200,
+          decoration: new BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+            style: BorderStyle.solid,
+          ))),
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+          child: Column(
+            children: <Widget>[
+              _buildTitle("TITLE #2"),
+              _buildDesc("DESC #2"),
+              _buildBottom("Author #2"),
+            ],
+          ),
+        );
+        break;
+
+      case 2:
+        return Container(
+          height: 200,
+          decoration: new BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+            style: BorderStyle.solid,
+          ))),
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+          child: Column(
+            children: <Widget>[
+              _buildTitle("TITLE #3"),
+              _buildDesc("DESC #3"),
+              _buildBottom("Author #3"),
+            ],
+          ),
+        );
+        break;
+
+      default:
+      return Container();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,32 +134,37 @@ class MyHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          CarouselSlider(
-              height: 400,
-              items: [1, 2, 3].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
-                        decoration: BoxDecoration(color: Colors.blue),
-                        child: Text(
-                          'text $i',
-                          style: TextStyle(fontSize: 16.0),
-                        ));
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              child: CarouselSlider(
+                  height: 400,
+                  enlargeCenterPage: true,
+                  initialPage: 0,
+                  onPageChanged: (index) {
+                    print(index);
+                    setState(() {
+                      currentIndex = index;
+                    });
                   },
-                );
-              }).toList()),
-          Container(
-            child: Column(
-              children: <Widget>[
-                title,
-                //desc,
-                //bottom,
-              ],
+                  items: [0, 1, 2].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 5.0, vertical: 10),
+                            decoration: BoxDecoration(color: Colors.blue),
+                            child: Text(
+                              'text $i',
+                              style: TextStyle(fontSize: 16.0),
+                            ));
+                      },
+                    );
+                  }).toList()),
             ),
           ),
+          _buildInfo(currentIndex),
         ],
       ),
     );
