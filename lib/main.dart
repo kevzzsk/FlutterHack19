@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/painting.dart';
 import 'route_gen.dart';
+import 'json_load.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +25,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var currentIndex = 0;
-  final dummyString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent auctor mi vitae mauris viverra sollicitudin. In sit amet velit euismod, porttitor erat nec, malesuada augue. Cras maximus et nulla vel vehicula. Phasellus interdum leo vitae leo elementum maximus.";
+  final dummyString =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent auctor mi vitae mauris viverra sollicitudin. In sit amet velit euismod, porttitor erat nec, malesuada augue. Cras maximus et nulla vel vehicula. Phasellus interdum leo vitae leo elementum maximus.";
   _buildTitle(title) {
     return new Row(
       children: <Widget>[
@@ -62,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  Widget _buildInfo(int curIndex) {
+  Widget _buildInfo(int curIndex,data) {
     switch (curIndex) {
       case 0:
         return Container(
@@ -75,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
           child: Column(
             children: <Widget>[
-              _buildTitle("TITLE #1"),
+              _buildTitle(data[curIndex]['title']),
               _buildDesc("DESC #1"),
               _buildBottom("Author #1"),
             ],
@@ -132,50 +134,57 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new AppBar(
         title: new Text("PowerPuff Boys"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              child: CarouselSlider(
-                  height: 400,
-                  enlargeCenterPage: true,
-                  initialPage: 0,
-                  onPageChanged: (index) {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                  items: [0, 1, 2].map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 5.0, vertical: 10),
-                            child: InkWell(
-                              onTap: (){
-                                // Navigate to new page
-                                Navigator.pushNamed(context, '/idea',arguments:dummyString); // PASS DATA TO ROUTE GEN
+      body: FutureBuilder(
+          future: JSONload.loadData(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: CarouselSlider(
+                          height: 400,
+                          enlargeCenterPage: true,
+                          initialPage: 0,
+                          onPageChanged: (index) {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          },
+                          items: [0, 1, 2].map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                // use snapshot.data
+                                return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 5.0, vertical: 10),
+                                    child: InkWell(
+                                      onTap: () {
+                                        // Navigate to new page
+                                        Navigator.pushNamed(context, '/idea',
+                                            arguments:
+                                                dummyString); // PASS DATA TO ROUTE GEN
+                                      },
+                                      child: Card(
+                                        color: Colors.blue,
+                                        child: Image.network(
+                                            snapshot.data[i]['imageURL']),
+                                      ),
+                                    ));
                               },
-                              child: Card(
-                                color: Colors.blue,
-                                child: Text(
-                                  'text $i',
-                                  style: TextStyle(fontSize: 16.0),
-                                ),
-                              ),
-                            ));
-                      },
-                    );
-                  }).toList()),
-            ),
-          ),
-          _buildInfo(currentIndex),
-        ],
-      ),
+                            );
+                          }).toList()),
+                    ),
+                  ),
+                  _buildInfo(currentIndex,snapshot.data),
+                ],
+              );
+            }
+          }),
     );
   }
 }

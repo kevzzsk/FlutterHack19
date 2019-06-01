@@ -17,14 +17,26 @@ class _IdeaPageState extends State<IdeaPage> {
         itemCount: 10,
         itemBuilder: (context, index) {
           return Container(
-            color: Colors.amber,
+            child: Column(
+              children: <Widget>[
+                new Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage:
+                          AssetImage('assets/images/elon_musk.png'),
+                    )
+                  ],
+                )
+              ],
+            ),
           );
         },
       ),
     );
   }
 
-  Padding _buildCommentTop() {
+  Widget _buildCommentTop() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -118,6 +130,7 @@ class _IdeaPageState extends State<IdeaPage> {
         Divider(),
         _displayAuthor(),
         Divider(),
+        _buildCommentTop(),
         _buildComment()
       ]),
     );
