@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _buildDesc(String desc) {
     return Container(
+      height: 60,
       child: Text(
         desc,
         maxLines: 3,
@@ -64,68 +65,23 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  Widget _buildInfo(int curIndex,data) {
-    switch (curIndex) {
-      case 0:
-        return Container(
-          height: 200,
-          decoration: new BoxDecoration(
-              border: Border(
-                  top: BorderSide(
-            style: BorderStyle.solid,
-          ))),
-          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-          child: Column(
-            children: <Widget>[
-              _buildTitle(data[curIndex]['title']),
-              _buildDesc("DESC #1"),
-              _buildBottom("Author #1"),
-            ],
-          ),
-        );
-        break;
-
-      case 1:
-        return Container(
-          height: 200,
-          decoration: new BoxDecoration(
-              border: Border(
-                  top: BorderSide(
-            style: BorderStyle.solid,
-          ))),
-          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-          child: Column(
-            children: <Widget>[
-              _buildTitle("TITLE #2"),
-              _buildDesc("DESC #2"),
-              _buildBottom("Author #2"),
-            ],
-          ),
-        );
-        break;
-
-      case 2:
-        return Container(
-          height: 200,
-          decoration: new BoxDecoration(
-              border: Border(
-                  top: BorderSide(
-            style: BorderStyle.solid,
-          ))),
-          padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-          child: Column(
-            children: <Widget>[
-              _buildTitle("TITLE #3"),
-              _buildDesc("DESC #3"),
-              _buildBottom("Author #3"),
-            ],
-          ),
-        );
-        break;
-
-      default:
-        return Container();
-    }
+  Widget _buildInfo(int curIndex, data) {
+    return Container(
+      height: 200,
+      decoration: new BoxDecoration(
+          border: Border(
+              top: BorderSide(
+        style: BorderStyle.solid,
+      ))),
+      padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+      child: Column(
+        children: <Widget>[
+          _buildTitle(data[curIndex]['title']),
+          _buildDesc(data[curIndex]['description']),
+          _buildBottom(data[curIndex]['author']),
+        ],
+      ),
+    );
   }
 
   @override
@@ -180,9 +136,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           }).toList()),
                     ),
                   ),
-                  _buildInfo(currentIndex,snapshot.data),
+                  _buildInfo(currentIndex, snapshot.data),
                 ],
               );
+            } else {
+              return Container();
             }
           }),
     );
