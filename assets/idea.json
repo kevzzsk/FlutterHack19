@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Flutter Chatbot",
+    "author": "Bill Gates",
+    "description": "Building chat app with Flutter and Firebase",
+    "upvotes": 35,
+    "downvotes": 0,
+    "imageURL": "https://cdn-images-1.medium.com/max/1600/1*Ejv11dejW2VLKCYG7eJxQQ.gif",
+    "text": "Hi all, in this article, we’ll try to build a chat app with Flutter and Firebase from scratch (include Firebase Auth, Google Sign-In, Cloud FireStore and Firebase Storage).\n Our app will have the following features:\n - Sign-in by Google account.\n - Chat one to one with other users (send text, image and sticker).\n - Update profile and avatar."
+  },
+  {
+    "id": 2,
+    "title": "Todo App",
+    "author": "Tim Apple",
+    "description": "Building a To Do app with Flutter",
+    "upvotes": 10,
+    "downvotes": 2,
+    "imageURL": "https://cdn-images-1.medium.com/max/1600/1*bV3Viw7sWVLDhbaKasHpZA.png",
+    "text": "Flutter is Google’s answer to React Native, allowing developers to create native apps for both Android and iOS. Unlike React Native, which is written in JSX, Flutter apps are written in Google’s Dart language.\nFlutter is still in technically in beta, but its tools are quite stable, and provide a smooth development experience.\nIn this post I’ll explain how to create a simple todo app using Flutter."
+  },
+  {
+    "id": 3,
+    "title": "Translation App",
+    "author": "Elon Musk",
+    "description": "Building a Translation app with Flutter",
+    "upvotes": 60,
+    "downvotes": 5,
+    "imageURL": "https://cdn-images-1.medium.com/max/1600/1*cubKKFKieuXjxPRPFe1M5Q.png",
+    "text": "To create the project we have to run Android Studio and click on “Start a new Flutter project” and then select “Flutter application”. We fill the form with the project name, the path to the flutter SDK, the project location and a description as below.\nOnce the project is created we start by cleaning the code generated in the main.dart file. Some code is already created but we to keep it as simple as possible."
+  }
+]
