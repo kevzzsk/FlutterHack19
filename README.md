@@ -1,16 +1,7 @@
-# flutterhack19
+# FlutterFly
 
-A new Flutter project.
+We believe that you will learn the most by working on your own project. However, it is often intimidating for beginners to start a new project. 
 
-## Getting Started
+Our app aims to alleviate this issue by providing a platform for experienced developers to share their creative ideas with the world from chatbot, social media platform, to do app, e-commerce platform, etc. 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+The insights given by our experienced users will shed some lights on your doubts and therefore bring you one step closer to your dream app!
