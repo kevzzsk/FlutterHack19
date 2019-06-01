@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>317181919427-mt2dmcroed2dqptkb7sumivuh7djo0ch.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.317181919427-mt2dmcroed2dqptkb7sumivuh7djo0ch</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCKD2Y_5fYl5sa9WYq0mBB5UDD1PqLK6W4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>317181919427</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.flutterhack19</string>
+	<key>PROJECT_ID</key>
+	<string>flutterhack-sg</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutterhack-sg.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:317181919427:ios:f5daccb4fa76554b</string>
+	<key>DATABASE_URL</key>
+	<string>https://flutterhack-sg.firebaseio.com</string>
+</dict>
+</plist>
