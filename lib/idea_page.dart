@@ -155,10 +155,10 @@ class _IdeaPageState extends State<IdeaPage> {
       body: ListView(children: [
         Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Text(widget.data), // DISPLAY RAW STRING
+          child: Text(widget.data['description']), // DISPLAY RAW STRING
         ),
         Divider(),
-        _displayAuthor(widget.data['author']),
+        _displayAuthor(widget.data['title']),
         Divider(),
         _buildCommentTop(),
         _buildComment()
